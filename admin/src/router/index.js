@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import myLogin from '../views/myLogin'
 import myMain from '../views/myMain'
 import CategoryEdit from '../views/CategoryEdit'
 import CategoryList from '../views/CategoryList'
@@ -10,9 +11,13 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/login', name: 'my_login', component: myLogin
+  },
+  {
     path: '/',
-    name: 'mymain',
+    name: 'my_main',
     component: myMain,
+    redirect: { path: '/categories/create' },
     children: [
       { path: 'categories/create', component: CategoryEdit },
       { path: 'categories/edit/:id', component: CategoryEdit, props: true },
