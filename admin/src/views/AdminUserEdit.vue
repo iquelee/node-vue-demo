@@ -1,9 +1,12 @@
 <template>
   <div>
-    <h1>{{id ? '编辑' : '新建'}}分类</h1>
+    <h1>{{id ? '编辑' : '新建'}}管理员</h1>
     <el-form label-width='120px' @submit.native.prevent="save">
-      <el-form-item label='名称'>
-        <el-input v-model="model.name"></el-input>
+      <el-form-item label='用户名'>
+        <el-input v-model="model.username"></el-input>
+      </el-form-item>
+      <el-form-item label='密码'>
+        <el-input type='password' v-model="model.password"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type='primary' native-type='submit'>保存</el-button>
@@ -26,11 +29,11 @@ export default {
     async save () {
       let res
       if (this.id) {
-        res = await this.$http.put(`/categories/${this.id}`, this.model)
+        res = await this.$http.put(`/admin_users/${this.id}`, this.model)
       } else {
-        res = await this.$http.post('/categories', this.model)
+        res = await this.$http.post('/admin_users', this.model)
       }
-      this.$router.push('/categories/list')
+      this.$router.push('/admin_users/list')
       this.$message({
         type: 'success',
         message: '保存成功'
@@ -38,7 +41,7 @@ export default {
       console.log(res)
     },
     async fetch() {
-      const res = await this.$http.get(`/categories/${this.id}`)
+      const res = await this.$http.get(`/admin_users/${this.id}`)
       this.model = res.data
     }
   },
